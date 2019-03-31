@@ -1,0 +1,75 @@
+type Query {
+  info: String!
+  feed(filter: String): [Product!]!
+  productById(id: ID!): Product!
+  userById(id: ID!): User!
+}
+
+type Mutation {
+  # Add a Product
+  postProduct(name: String!, brand: String!, description: String!, url: String!, image: String, price: Float!, currency: String!, ammount: Int!): Product!
+  
+  # Update a Product
+  updateProduct(id: ID!, name: String, brand: String, description: String, url: String, image: String, price: Float, currency: String, ammount: Int): Product
+
+  # Delete a Product
+  deleteProduct(id: ID!): Product
+  
+  # Signup a User
+  signup(email: String!, password: String!, name: String!, bougth: [ProductInput] , cart: [ProductInput]): AuthPayload
+  
+  # Login a User
+  login(email: String!, password: String!): AuthPayload
+
+  # Update a User
+  updateUser(email: String, password: String, name: String, bougth: [ProductInput] , cart: [ProductInput]): Product!
+
+  # Delete a User
+  deleteUser(id: ID!): Product
+}
+
+
+input ProductInput {
+  id: ID!
+  name: String!
+  brand: String!
+  description: String!
+  url: String
+  image: String
+  price: Float!
+  currency: String!
+  category: [String]
+  ammount: Int
+}
+
+
+type Product {
+  id: ID!
+  name: String!
+  brand: String!
+  description: String!
+  url: String
+  image: String
+  price: Float!
+  currency: String!
+  category: [String]!
+  ammount: Int!
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  bougth: [Product]!
+  cart: [Product]!
+}
+
+type AuthPayload {
+  token: String
+  user: User
+}
+
+type Subscription {
+  newProduct: Product
+  newUser: User
+}

@@ -1,0 +1,23 @@
+type User {
+  id: ID! @id
+  name: String!
+  email: String! @unique
+  password: String!
+  bougth: [Product]! @relation(name: "BougthProducts", link: INLINE)
+  cart: [Product]! @relation(name: "CartProducts", link: INLINE)
+}
+
+type Product {
+  id: ID! @id
+  name: String!
+  brand: String!
+  description: String!
+  url: String
+  image: String
+  price: Float!
+  currency: String!
+  ammount: Int!
+  active: Boolean @default(value: true)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
